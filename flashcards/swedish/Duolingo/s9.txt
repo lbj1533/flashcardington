@@ -1,0 +1,28 @@
+# Score: 81
+piloten: the pilot
+pengar: money
+pengarna: the money
+min pengar: my money
+ett danmark: a denmark
+på semester: on vacation
+ett norge: a norway
+de: they
+på väg: on the way
+en vän: a friend
+min vän: my friend
+på affärsresa: on a business trip
+en engelska: a english
+ett pass: a passport
+en hjälp: a help
+talar: speak
+min svenska: my swedish
+en taxi: a taxi
+en väska: a bag
+min norska: my norwegian
+förstår: understand
+en biljett: a ticket
+vad heter du: what is your name
+okej: okay
+jag heter logan: my name is logan
+kommer: come
+från: from

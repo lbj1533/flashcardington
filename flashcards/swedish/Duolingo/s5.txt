@@ -1,0 +1,19 @@
+# Score: 100
+en kvinna: woman
+en läkare: doctor
+en bonde: farmer
+arbetar: to work
+en lärare: teacher
+en servitör: waiter
+han: he, it
+hon: she
+en advokat: lawyer
+en chef: boss
+ett jobb: job
+men: but
+lätt: easy
+intressant: interesting
+tillsammans: together
+en ingenjör: engineer
+en skådespelare: actor
+tycker om: to like

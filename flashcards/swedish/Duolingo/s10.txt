@@ -1,0 +1,40 @@
+# Score: 93
+parken: the park
+en mataffär: a grocery store
+mataffären: the grocery store
+en restaurang: a restaurant
+restaurangen: the restaurant
+dyr: expensive
+gammal: old
+ett bibliotek: a library
+biblioteket: the library
+ett hotell: a hotel
+hotellet: the hotel
+där borta: over there
+det finns: there's
+ett apotek: a pharmacy
+apoteket: the pharmacy
+en kyrka: a church
+kyrken: the church
+ett museum: a museum
+museumet: the museum
+i närheten: nearby
+billig: cheap
+kaféet: the cafe
+till höger: on the right
+en marknad: a market
+marknaden: the market
+långt borta: far away
+en busshållplats: a bus stop
+busshållplatsen: the bus stop
+en bankomat: an atm
+bankomaten: the atm
+flygplatsen: the airport
+en flygplats: an airport
+till vänster: on the left
+ett bageri: a bakery
+bageriet: the bakery
+ett universitet: a university
+universitetet: the university
+stationen: the station
+en station: a station 

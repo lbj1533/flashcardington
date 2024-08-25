@@ -1,0 +1,26 @@
+# Score: 100
+ett piano: piano
+ett schack: chess
+simmar: swim
+ofta: often
+spelar: play
+en musik: music
+tältar: go camping
+aldrig: never
+seglar: sail
+lyssnar på musik: listen to music
+alltid: always
+dansar: dance
+målar: paint
+tränar: work out
+medan: while
+ibland: sometimes
+en gitarr: guitar
+tittar på tv: watching tv
+pluggar: study
+städar: clean
+en fotboll: soccer
+duschar: shower
+bakar: bake
+vaknar: wake up
+tidigt: early

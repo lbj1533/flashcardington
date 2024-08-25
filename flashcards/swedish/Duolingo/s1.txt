@@ -1,0 +1,37 @@
+# Score: 100
+# includes 1 and 2
+
+en kaffe: coffee
+en mjölk: milk
+hej: hi
+tack: please, thank you
+och: and
+ett vin: wine
+ett vatten: water
+ett bröd: bread
+ett te: tea
+välkommen: welcome
+en öl: beer
+ja: yes
+nej: no
+hej då: bye
+eller: or
+en mor: mother
+en far: father
+jag: I
+en bror: brother
+en syster: sister
+är: am, are, is
+smart: smart
+en familj: family
+en man: man, husband
+en fru: woman, wife
+snäll: nice
+rolig: funny
+ung: young
+lång: tall
+en son: son
+en dotter: daughter
+väldigt: very
+min, mitt, mina: my
+snälla: pretty please

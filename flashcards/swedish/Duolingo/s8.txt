@@ -1,0 +1,28 @@
+# Score: 100
+en björn: a bear
+en elefant: an elephant
+björnen: the bear
+ser: see
+elefanten: the elephant
+ett lejon: a lion
+ett får: a sheep
+en sked: a spoon
+skeden: the spoon
+häftigt: cool
+fåret: the sheep
+lejonet: the lion
+ett bi: a bee
+biet: the bee
+en ren: a reindeer
+renen: the reindeer
+kolla: look
+en pingvin: a penguin
+pingvinen: the penguin
+tyst: quiet
+ett rådjur: a deer
+rådjuret: the deer
+flodhästen: the hippo
+en flodhäst: a hippo
+husdjuret: the pet
+ett husdjur: a pet
+skrämmande: scary

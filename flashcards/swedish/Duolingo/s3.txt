@@ -1,0 +1,41 @@
+# Score: 100
+# includes 3 and 4
+
+en katt: cat
+en hund: dog
+god morgon: good morning
+du: you
+har: have
+bra: good
+vi: we
+vi ses: see ya
+god kväll: good evening
+hur mår du: how are you
+var: where
+åh: oh
+i: in
+ett sverige: sweden
+bor: live
+förlåt: sorry
+kanske: maybe
+så mycket: so much
+en ost: cheese
+ett bord: table
+ett glas: glass
+med: with
+en pizza: pizza
+en sallad: salad
+en tårta: cake
+varm: hot
+hungrig: hungry
+en meny: menu
+ett ris: rice
+ett kött: meat
+min: my (c)
+mitt: my (n)
+mums: yum
+en fisk: fish
+mer: more
+ursäkta: excuse me
+kall: cold
+för: too

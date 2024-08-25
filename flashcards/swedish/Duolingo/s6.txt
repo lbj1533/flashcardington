@@ -1,0 +1,29 @@
+# Score: 96
+
+en tv: tv
+en bil: car
+ett hus: house
+en mobil: phone
+stor: big
+en cykel: bike
+ett rum: room
+ny: new
+en lägenhet: apartment
+behöver: needs
+ett skrivbord: desk
+en säng: bed
+liten: small
+här: here
+ditt: your (n)
+din: your (c)
+en dator: computer
+ett kylskåp: fridge
+där: there
+vi: we
+eller hur?: right?
+en stad: city
+i centrum: downtown
+Malmö: Malmö
+hemma: at home
+Göteborg: Gothenburg
+söt: sweet
