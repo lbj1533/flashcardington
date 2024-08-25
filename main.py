@@ -20,16 +20,34 @@ class FileEditorApp(QMainWindow):
         self.setCentralWidget(container)
         
         # Sidebar: QTreeWidget to list files and directories
+        sidebar_layout = QVBoxLayout()
         self.sidebar = QTreeWidget()
         self.sidebar.setHeaderHidden(True)
         self.sidebar.itemClicked.connect(self.on_item_clicked)
+        sidebar_layout.addWidget(self.sidebar)
+        
+        # Buttons for New File, New Folder, and Delete in the sidebar
+        self.new_file_button = QPushButton("New File")
+        self.new_file_button.clicked.connect(self.new_file)
+        sidebar_layout.addWidget(self.new_file_button)
+
+        self.new_folder_button = QPushButton("New Folder")
+        self.new_folder_button.clicked.connect(self.new_folder)
+        sidebar_layout.addWidget(self.new_folder_button)
+
+        self.delete_button = QPushButton("Delete")
+        self.delete_button.clicked.connect(self.delete_item)
+        sidebar_layout.addWidget(self.delete_button)
+
+        sidebar_widget = QWidget()
+        sidebar_widget.setLayout(sidebar_layout)
         
         # Tab widget for multiple file editors
         self.tab_widget = QTabWidget()
         
         # Splitter to allow resizing between sidebar and tab widget
         splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.addWidget(self.sidebar)
+        splitter.addWidget(sidebar_widget)
         splitter.addWidget(self.tab_widget)
         splitter.setStretchFactor(1, 3)
         
@@ -38,22 +56,18 @@ class FileEditorApp(QMainWindow):
         # Load the directory structure into the sidebar
         self.load_directory_structure("flashcards")
         
-        # Save button and New File/Folder/Delete buttons
+        # Save button and new buttons on the status bar
         save_button = QPushButton("Save File")
         save_button.clicked.connect(self.save_file)
         self.statusBar().addPermanentWidget(save_button)
 
-        new_file_button = QPushButton("New File")
-        new_file_button.clicked.connect(self.new_file)
-        self.statusBar().addPermanentWidget(new_file_button)
+        help_button = QPushButton("Help")
+        help_button.clicked.connect(self.show_help)
+        self.statusBar().addPermanentWidget(help_button)
 
-        new_folder_button = QPushButton("New Folder")
-        new_folder_button.clicked.connect(self.new_folder)
-        self.statusBar().addPermanentWidget(new_folder_button)
-
-        delete_button = QPushButton("Delete")
-        delete_button.clicked.connect(self.delete_item)
-        self.statusBar().addPermanentWidget(delete_button)
+        check_format_button = QPushButton("Check Format")
+        check_format_button.clicked.connect(self.check_format)
+        self.statusBar().addPermanentWidget(check_format_button)
 
         # Current file path
         self.current_file_path = ""
@@ -201,14 +215,49 @@ class FileEditorApp(QMainWindow):
         os.rmdir(path)
 
     def close_related_tabs(self, path):
-        """Close any open tabs related to the given file or directory path."""
-        for index in range(self.tab_widget.count() - 1, -1, -1):
-            tab_text = self.tab_widget.tabText(index)
-            tab_path = os.path.join(os.path.dirname(self.current_file_path), tab_text)
-
-            # Check if the tab corresponds to the deleted file or is inside a deleted directory
-            if tab_path == path or path in os.path.dirname(tab_path):
+        """Close any open tabs related to the file or directory being deleted."""
+        for index in range(self.tab_widget.count()):
+            editor = self.tab_widget.widget(index)
+            tab_path = os.path.join(os.path.dirname(self.current_file_path), self.tab_widget.tabText(index))
+            if tab_path.startswith(path):
                 self.tab_widget.removeTab(index)
+
+    def show_help(self):
+        """Show help information about the application."""
+        QMessageBox.information(self, "Help", 
+                                "This is a flashcard file editor. You can create, delete, and edit files and folders.\n"
+                                "Flashcard files should have a specific format:\n"
+                                "1. Begin with '## Score: 90'\n"
+                                "2. Use '# comment' for comments\n"
+                                "3. Use 'question : answer' format for flashcards\n"
+                                "4. '&' represents 'and', '|' represents 'or', '*' represents smart grading.")
+
+    def check_format(self):
+        """Check if the current file follows the required flashcard format."""
+        if not self.current_file_path:
+            QMessageBox.warning(self, "Warning", "No file selected.")
+            return
+        
+        current_editor = self.tab_widget.currentWidget()
+        if not current_editor:
+            QMessageBox.warning(self, "Warning", "No file open in the current tab.")
+            return
+        
+        content = current_editor.toPlainText()
+        if self.is_valid_format(content):
+            QMessageBox.information(self, "Format Check", "The file format is valid.")
+        else:
+            QMessageBox.warning(self, "Format Check", "The file format is invalid.")
+
+    def is_valid_format(self, content):
+        """Validate the flashcard file format."""
+        lines = content.splitlines()
+        if not lines[0].startswith('## Score:'):
+            return False
+
+        # Additional checks for correct formatting could be added here
+        # For now, we'll assume the format is valid if it has the correct header
+        return True
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
