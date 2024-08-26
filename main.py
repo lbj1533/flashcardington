@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import (
     QListWidget, QTextEdit, QPushButton, QFileDialog, QMessageBox, 
     QSplitter, QTreeWidget, QTreeWidgetItem, QTabWidget, QInputDialog
 )
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer
 
 class FileEditorApp(QMainWindow):
     def __init__(self):
@@ -44,7 +44,9 @@ class FileEditorApp(QMainWindow):
         
         # Tab widget for multiple file editors
         self.tab_widget = QTabWidget()
-        
+        self.tab_widget.setTabsClosable(True)
+        self.tab_widget.tabCloseRequested.connect(self.close_tab)
+
         # Splitter to allow resizing between sidebar and tab widget
         splitter = QSplitter(Qt.Orientation.Horizontal)
         splitter.addWidget(sidebar_widget)
@@ -65,12 +67,17 @@ class FileEditorApp(QMainWindow):
         help_button.clicked.connect(self.show_help)
         self.statusBar().addPermanentWidget(help_button)
 
-        check_format_button = QPushButton("Check Format")
-        check_format_button.clicked.connect(self.check_format)
-        self.statusBar().addPermanentWidget(check_format_button)
+        study_button = QPushButton("Study")
+        study_button.clicked.connect(self.study)
+        self.statusBar().addPermanentWidget(study_button)
 
         # Current file path
         self.current_file_path = ""
+        
+        # Timer for auto-save
+        self.auto_save_timer = QTimer()
+        self.auto_save_timer.setInterval(2000)  # Auto-save delay (in milliseconds)
+        self.auto_save_timer.timeout.connect(self.auto_save)
 
     def load_directory_structure(self, root_dir):
         """Load the directory structure into the sidebar."""
@@ -119,6 +126,7 @@ class FileEditorApp(QMainWindow):
             # Create a new text editor widget for this file
             text_editor = QTextEdit()
             text_editor.setPlainText(content)
+            text_editor.textChanged.connect(self.start_auto_save_timer)
             tab_index = self.tab_widget.addTab(text_editor, os.path.basename(file_path))
             self.tab_widget.setCurrentIndex(tab_index)
         except Exception as e:
@@ -138,9 +146,17 @@ class FileEditorApp(QMainWindow):
         try:
             with open(self.current_file_path, 'w') as file:
                 file.write(current_editor.toPlainText())
-            QMessageBox.information(self, "Success", "File saved successfully.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Could not save file: {str(e)}")
+
+    def start_auto_save_timer(self):
+        """Start the auto-save timer when the text editor content changes."""
+        self.auto_save_timer.start()
+
+    def auto_save(self):
+        """Automatically save the file if changes have been made."""
+        self.auto_save_timer.stop()  # Stop the timer once the save operation is triggered
+        self.save_file()
 
     def new_file(self):
         """Create a new file in the selected directory."""
@@ -222,18 +238,21 @@ class FileEditorApp(QMainWindow):
             if tab_path.startswith(path):
                 self.tab_widget.removeTab(index)
 
+    def close_tab(self, index):
+        """Close the tab at the given index."""
+        self.tab_widget.removeTab(index)
+
     def show_help(self):
         """Show help information about the application."""
         QMessageBox.information(self, "Help", 
                                 "This is a flashcard file editor. You can create, delete, and edit files and folders.\n"
                                 "Flashcard files should have a specific format:\n"
-                                "1. Begin with '## Score: 90'\n"
-                                "2. Use '# comment' for comments\n"
-                                "3. Use 'question : answer' format for flashcards\n"
-                                "4. '&' represents 'and', '|' represents 'or', '*' represents smart grading.")
+                                "1. Use '# comment' for comments\n"
+                                "2. Use 'question : answer' format for flashcards\n"
+                                "3. '&' represents 'and', '|' represents 'or', '*' represents smart grading.")
 
-    def check_format(self):
-        """Check if the current file follows the required flashcard format."""
+    def study(self):
+        """Process the flashcard file for study."""
         if not self.current_file_path:
             QMessageBox.warning(self, "Warning", "No file selected.")
             return
@@ -244,20 +263,35 @@ class FileEditorApp(QMainWindow):
             return
         
         content = current_editor.toPlainText()
-        if self.is_valid_format(content):
-            QMessageBox.information(self, "Format Check", "The file format is valid.")
-        else:
-            QMessageBox.warning(self, "Format Check", "The file format is invalid.")
+        questions = self.parse_flashcards(content)
+        self.process_flashcards(questions)
 
-    def is_valid_format(self, content):
-        """Validate the flashcard file format."""
+    def parse_flashcards(self, content):
+        """Parse the flashcards from the content."""
         lines = content.splitlines()
-        if not lines[0].startswith('## Score:'):
-            return False
+        flashcards = {}
+        for line in lines:
+            if ':' in line:
+                question, answer = line.split(':', 1)
+                flashcards[question.strip()] = answer.strip()
+        return flashcards
 
-        # Additional checks for correct formatting could be added here
-        # For now, we'll assume the format is valid if it has the correct header
-        return True
+    def process_flashcards(self, flashcards):
+        """Process each flashcard for the study session."""
+        for question, answer in flashcards.items():
+            user_answer, ok = QInputDialog.getText(self, "Flashcard", question)
+            if ok:
+                correct = self.evaluate_answer(answer, user_answer)
+                QMessageBox.information(self, "Result", "Correct!" if correct else "Incorrect.")
+    
+    def evaluate_answer(self, correct_answer, user_answer):
+        """Evaluate the user's answer based on the correct answer format."""
+        correct_parts = [part.strip() for part in correct_answer.split('|')]
+        for part in correct_parts:
+            subparts = [subpart.strip() for subpart in part.split('&')]
+            if all(subpart in user_answer for subpart in subparts):
+                return True
+        return False
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
