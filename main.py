@@ -3,7 +3,7 @@ import os
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, 
     QListWidget, QTextEdit, QPushButton, QFileDialog, QMessageBox, 
-    QSplitter, QTreeWidget, QTreeWidgetItem, QTabWidget, QInputDialog
+    QSplitter, QTreeWidget, QTreeWidgetItem, QTabWidget, QInputDialog, QLabel, QLineEdit
 )
 from PyQt6.QtCore import Qt, QTimer
 
@@ -78,6 +78,12 @@ class FileEditorApp(QMainWindow):
         self.auto_save_timer = QTimer()
         self.auto_save_timer.setInterval(2000)  # Auto-save delay (in milliseconds)
         self.auto_save_timer.timeout.connect(self.auto_save)
+        
+        # Study mode variables
+        self.study_widget = None
+        self.current_question = ""
+        self.current_answer = ""
+        self.attempts = 0
 
     def load_directory_structure(self, root_dir):
         """Load the directory structure into the sidebar."""
@@ -146,6 +152,7 @@ class FileEditorApp(QMainWindow):
         try:
             with open(self.current_file_path, 'w') as file:
                 file.write(current_editor.toPlainText())
+            QMessageBox.information(self, "Success", "File saved successfully.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Could not save file: {str(e)}")
 
@@ -247,12 +254,13 @@ class FileEditorApp(QMainWindow):
         QMessageBox.information(self, "Help", 
                                 "This is a flashcard file editor. You can create, delete, and edit files and folders.\n"
                                 "Flashcard files should have a specific format:\n"
-                                "1. Use '# comment' for comments\n"
-                                "2. Use 'question : answer' format for flashcards\n"
-                                "3. '&' represents 'and', '|' represents 'or', '*' represents smart grading.")
+                                "1. Begin with '## Score: 90'\n"
+                                "2. Use '# comment' for comments\n"
+                                "3. Use 'question : answer' format for flashcards\n"
+                                "4. '&' represents 'and', '|' represents 'or', '*' represents smart grading.")
 
     def study(self):
-        """Process the flashcard file for study."""
+        """Start the study session using the current file's flashcards."""
         if not self.current_file_path:
             QMessageBox.warning(self, "Warning", "No file selected.")
             return
@@ -264,7 +272,12 @@ class FileEditorApp(QMainWindow):
         
         content = current_editor.toPlainText()
         questions = self.parse_flashcards(content)
-        self.process_flashcards(questions)
+        
+        if not questions:
+            QMessageBox.warning(self, "Warning", "No flashcards found in the current file.")
+            return
+        
+        self.start_study_session(questions)
 
     def parse_flashcards(self, content):
         """Parse the flashcards from the content."""
@@ -276,14 +289,74 @@ class FileEditorApp(QMainWindow):
                 flashcards[question.strip()] = answer.strip()
         return flashcards
 
-    def process_flashcards(self, flashcards):
-        """Process each flashcard for the study session."""
-        for question, answer in flashcards.items():
-            user_answer, ok = QInputDialog.getText(self, "Flashcard", question)
-            if ok:
-                correct = self.evaluate_answer(answer, user_answer)
-                QMessageBox.information(self, "Result", "Correct!" if correct else "Incorrect.")
-    
+    def start_study_session(self, flashcards):
+        """Start the study session with the first question."""
+        self.study_widget = QWidget()
+        self.study_layout = QVBoxLayout()
+        self.study_widget.setLayout(self.study_layout)
+        
+        self.question_label = QLabel()
+        self.study_layout.addWidget(self.question_label)
+        
+        self.hint_label = QLabel()
+        self.hint_label.setStyleSheet("color: gray;")
+        self.study_layout.addWidget(self.hint_label)
+        
+        self.answer_input = QLineEdit()
+        self.study_layout.addWidget(self.answer_input)
+        
+        self.submit_button = QPushButton("Submit Answer")
+        self.submit_button.clicked.connect(lambda: self.check_answer(flashcards))
+        self.study_layout.addWidget(self.submit_button)
+        
+        self.tab_widget.addTab(self.study_widget, "Study Session")
+        self.tab_widget.setCurrentWidget(self.study_widget)
+        
+        self.flashcards = flashcards
+        self.flashcard_keys = iter(self.flashcards.keys())
+        self.next_question()
+
+    def next_question(self):
+        """Load the next question in the study session."""
+        try:
+            self.current_question = next(self.flashcard_keys)
+            self.current_answer = self.flashcards[self.current_question]
+            self.attempts = 0
+            self.question_label.setText(f"Question: {self.current_question}")
+            self.hint_label.setText("")
+            self.answer_input.clear()
+        except StopIteration:
+            QMessageBox.information(self, "Study Complete", "You have completed the study session!")
+            self.tab_widget.removeTab(self.tab_widget.currentIndex())
+
+    def check_answer(self, flashcards):
+        """Check the user's answer and provide hints or corrections as needed."""
+        user_answer = self.answer_input.text().strip()
+        correct = self.evaluate_answer(self.current_answer, user_answer)
+        
+        if correct:
+            QMessageBox.information(self, "Correct!", "You answered correctly!")
+            self.next_question()
+        else:
+            self.attempts += 1
+            if self.attempts == 1:
+                hint = self.get_hint(self.current_answer)
+                self.hint_label.setText(f"Hint: {hint}")
+                self.answer_input.clear()
+            elif self.attempts == 2:
+                self.hint_label.setText(f"Correct Answer: {self.current_answer}")
+                self.answer_input.clear()
+            else:
+                QMessageBox.information(self, "Correct!", "You now know the correct answer!")
+                self.next_question()
+
+    def get_hint(self, correct_answer):
+        """Generate a hint based on the correct answer."""
+        if '&' in correct_answer or '|' in correct_answer:
+            return "Pay attention to the logical operators (& for 'and', | for 'or')."
+        else:
+            return f"The correct answer starts with: {correct_answer[0]}"
+
     def evaluate_answer(self, correct_answer, user_answer):
         """Evaluate the user's answer based on the correct answer format."""
         correct_parts = [part.strip() for part in correct_answer.split('|')]

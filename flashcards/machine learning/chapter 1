@@ -1,0 +1,29 @@
+## Score
+
+how would you define machine learning? : Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed
+can you name four types of problems where it shines? : image and speech recognition, predictive analytics, natural language processing, anomaly detection
+what is a labeled training set? : A labeled training set is a dataset used in supervised machine learning that contains input data paired with the correct output
+What are the two most common supervised tasks? : classification and regression
+Can you name four common unsupervised tasks? : clustering, dimensionality reduction, anomaly and novelty detection, association rule learning
+What type of Machine Learning algorithm would you use to allow a robot to walk in various unknown terrains? : reinforcement learning
+What type of algorithm would you use to segment your customers into multiple groups? : clustering algorithms with unsupervised learning
+Would you frame the problem of spam detection as a supervised learning problem or an unsupervised learning problem? : supervised learning
+What is an online learning system? : learns incrementally by processing data one instance or batch at a time, which is useful when the model needs to quickly adapt to new data
+What is out-of-core learning? : model trains on datasets that are too large to fit into a computer's memory all at once
+What type of learning algorithm relies on a similarity measure to make predictions? :  instance based learning or k nearest neighbors
+What is the difference between a model parameter and a learning algorithm’s hyperparameter? : internal variables of the models that are learned from the training data
+What do model-based learning algorithms search for? What is the most common strategy they use to succeed? How do they make predictions? : they search for a model that best maps input features to the target output by minimizing a loss function. The most common strategy is to use optimization techniques (like gradient descent) to find the best model parameters. They make predictions by applying the learned model to new inputs.
+Can you name four of the main challenges in Machine Learning? : not enough data, poor quality, overfitting and underfitting, feature engineering
+if your model performs great on the training data but generalizes poorly to new instances, what is happening? Can you name three possible solutions? : overfitting, solutions include simplifying the model, regularization, or more training data
+What is a test set and why would you want to use it? : a separate training set to evalutate the performance of a trained model. used to ensure that the model generalizes well beyond the training data
+What is the purpose of a validation set? : A dataset used during the training process to tune hyperparameters and prevent overfitting. it helps in selecting the best model configuration before evaluating on the test set.
+What can go wrong if you tune hyperparameters using the test set? : overfitting
+What is repeated cross-validation and why would you prefer it to using a single validation set? : this involves performing cross-validation multiple times with different data splits and averaging the results. gives a more reliable evaluation of the model's ability to generalize.
+
+
+
+
+
+
+
+
