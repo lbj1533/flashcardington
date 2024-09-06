@@ -1,0 +1,78 @@
+.fcard File Documentation:
+
+General Information:
+The parser will find .fcard files by their extension, .fcard. The filenames should therefore be defined as follows: `myflashcards.fcard`.
+Additionally, lines can delimited by either LF or CRLF (new lines). This means that information is separated by a newline, both in the header and the body of the file.
+
+Header:
+The parser will look for a file with a .card extension. Following this, any header information defined in a .fcard file parser can be specified as follows: `# Score : 90`, `# Last 5 Scores : 90, 80, 60, 55, 12`. Delimit with a new line.
+`##` ends the header.
+
+An example of a header:
+
+# Score: 50
+# Last 5 Scores: 50, 60, 70, 80, 100
+##
+
+Body:
+.fcard files are meant to be read into a flashcard studying application. Thus, each line should be thought of as a flashcard.
+In each flashcard, there is at least one question and at least one answer. There can be more of either, as the ability to flip cards is supported, meaning that the answer will be asked and the question will be expected. Blankspace (except new lines) between delimiters does not matter. The delimiters between questions and answers alter behavior in the following ways.
+| delimits between questions or between answers and is logical OR. (Require one of the answers, accept nothing other than answers)
+& delimits between questions or between answers and is logical AND. (Require all answers no others.) (Same as `,`)
+, delimits between questions or between answers and is logical AND. (Require all answers, accept no others.) (Same as `&`)
+: delimits between the questions and the answers and means the flashcard will be graded exactly, except for case and blankspace between words.
+; delimits between the questions and the answers and means the flashcard will be graded with a smart grading algorithm decided by the app.
+/ delimits between a flashcard and a note. The note will be displayed along with the question (or answer if the studying order is flipped)
+Cards can take the following formats:
+
+Question 1 : Answer 1
+Shown: Question 1
+Example Answer: Answer 1 (Correct)
+Example Answer: answer 1 (Correct)
+Example Answer: answer    1 (Correct)
+Example Answer: Answer1 (Incorrect)
+Example Answer: anser 1 (Incorrect)
+
+Question 2: Answer 2A | Answer 2B
+Shown: Question 2
+Example Answer: Answer 2A (Correct)
+Example Answer: Answer 2B (Correct)
+Example Answer: Answer 2B Answer 2A (Correct)
+Example Answer: Answer 2B, Answer 2A (Correct)
+Example Answer: Answer 2B, Answer 2A, Answer 2C (Incorrect)
+Example Answer: Answer 2C (Incorrect)
+
+Question 3: Answer 3A & Answer 3B
+Shown: Question 3
+Example Answer: Answer 3A (Incorrect)
+Example Answer: Answer 3B (Incorrect)
+Example Answer: Answer 3A Answer 3B (Correct)
+
+Question 4A & Question 4B: Answer 4
+Shown: Question 4A, Question 4B
+Example Answer: Answer 4 (Correct)
+
+Question 5A , Question 5B: Answer 5
+Shown: Question 5A, Question 5B
+Example Answer: Answer 5 (Correct)
+
+Question 6A | Question 6B: Answer 6
+Shown: Question 6A, Question 6B
+Example Answer: Answer 6 (Correct)
+
+Question 7 : Answer 7 / Note
+Shown: Question 7 (Note)
+Shown: Answer 7 (Note)
+
+The above permutations also apply for cards graded with `;`, but are graded using a smart grading algorithm.
+Lines beginning with `#` will be ignored by the parser, given that the are within the body.
+
+Here is an example of a body:
+
+Question 1 : Answer 1
+Question 2: Answer 2A | Answer 2B
+Question 3: Answer 3A & Answer 3B
+Question 4A & Question 4B: Answer 4
+Question 5A , Question 5B: Answer 5
+Question 6A | Question 6B: Answer 6
+Question 7 : Answer 7 / Note

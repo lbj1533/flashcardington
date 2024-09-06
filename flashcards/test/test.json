@@ -1,0 +1,16 @@
+{
+    "score": 0,
+    "last_scores": [],
+    "cards": [
+        {
+            "question": [
+                "1"
+            ],
+            "answer": [
+                "1"
+            ],
+            "behavior": "and",
+            "note": "note"
+        }
+    ]
+}

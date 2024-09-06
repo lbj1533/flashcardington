@@ -4,7 +4,7 @@
 en kaffe: coffee
 en mjölk: milk
 hej: hi
-tack: please, thank you
+tack: please | thank you
 och: and
 ett vin: wine
 ett vatten: water

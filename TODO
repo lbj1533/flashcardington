@@ -1,0 +1,34 @@
+Problems with the study interface:
+-words should not move when a note is introduced. 
+-decrease blank space in the app, make buttons bigger and overall improve the interface.
+-enter shortcut only works for the first flashcard, and does not work thereafter.
+-question should simply show the question, not "Question: [question]".
+-after the user gets the question wrong, show the correct answer where you would normally show only the error message. it should be formatted like this. "Incorrect. Correct Answer: [correct answer]"
+-Once the session has completed, show a repeat set button, and a quit button, additionally the quit button should be present the whole time while studying so the user can quit studying whenever they want.
+
+Problems with the set creation interface:
+- the box for the creation of the notes should be smaller, and the boxes for the questions and answers should be bigger.
+- allow tabbing over the note text box, only if the last input was tabbing or shift tabbing from another text box or dropdown.
+- entering to add the created card does not work
+- create a place to name the set to be created.
+- saving an empty set appears to work in the gui, but doesnt actually do anything behind the scenes, make sure the gui shows that it doesnt work.
+- saving the set right now saves the created set to the parent directory of the one selected.
+- once a set is created, go back to the welcome screen
+- create a quit button so the user can leave the set creation interface without creating a set.
+
+Problems with the study interface:
+- the load flashcards button should initialize to the flashcards directory
+- pressing return to submit the flashcard still does not work past the first one
+- an additional quit button does not need to be created when the set has completed, as there is one that is always there.
+- the repeat set button crashes, simply remove it for now
+
+Problems with the creation interface
+- enter still does not work to save a flashcard
+- ctrl-s does not save the set either.
+
+Problems with the study interface:
+- return to submit only works on the first card, allow it to work on every card, interestingly, it still says Question: [question] and note: [note] instead of just having [question] and [note] on the first flashcard, perhaps these are linked. Another theory could be that when I press return and i am focused into the answer box, it simply attempts to enter a newline character instead of submitting the card. Either way, fix this.
+- a note shifts the interface around, prevent this. The interface should look the same whether or not the note is present, just with or without the note.
+
+Problems with the flashcard set creation interface:
+- allow tab to skip over the note field, so it goes straight to add card
