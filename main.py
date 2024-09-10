@@ -60,6 +60,11 @@ class FlashcardApp(QMainWindow):
         with open(file, "r") as f:
             self.flashcards_data = json.load(f)
         self.current_card_index = 0
+
+        # Create a persistent shortcut for the entire study session
+        self.submit_shortcut = QShortcut(QKeySequence("Return"), self)
+        self.submit_shortcut.activated.connect(self.check_answer)
+
         self.show_flashcard()
 
     def show_flashcard(self):
@@ -78,7 +83,7 @@ class FlashcardApp(QMainWindow):
         self.question_label = QLabel(", ".join(question))
         layout.addWidget(self.question_label)
 
-        # Display note if present without shifting layout, otherwise add blank label to keep layout consistent
+        # Display note if present without shifting layout
         self.note_label = QLabel(f"Note: {note}" if note else " ")  # Blank space for consistency
         layout.addWidget(self.note_label)
 
@@ -102,10 +107,6 @@ class FlashcardApp(QMainWindow):
 
         self.main_widget.setLayout(layout)
         self.answer_input.setFocus()  # Automatically focus on the answer input
-
-        # Shortcut for submitting answer with Return key
-        submit_shortcut = QShortcut(QKeySequence("Return"), self)
-        submit_shortcut.activated.connect(self.check_answer)
 
     def check_answer(self):
         card = self.flashcards_data["cards"][self.current_card_index]
