@@ -32,3 +32,19 @@ Problems with the study interface:
 
 Problems with the flashcard set creation interface:
 - allow tab to skip over the note field, so it goes straight to add card
+
+Problems with editing interface
+- save changes should be a save & quit button
+- quit button should be left of save & quit button
+- deleting entire set should delete the json file itself
+- delete entire set should go back to welcome screen once complete
+- add new card should not scroll to the top, it should keep the user's position on the page
+- new cards should be initiated with a blank question and answer field, and any flashcards that have both blank fields should not be saved. any flashcards that have either a blank question or answer field should raise a popup and make the user either delete the card or fill in the appropriate fields.
+
+problems with the editing interface
+- the bar at the bottom is too big, it takes up half the screen, i want it the minimum size it can be with the buttons it has.
+- add the delete entire set button to the bottom of the bar at the bottom, below the quit and save and quit buttons. additionally, make the text on the delete entire set button red. 
+- instead of having a big button to delete each card, have a small red x button at the top right of each card.
+
+- ensure the quit button is to the left of the save and quit button on the same row, and rename the save and quit button to use "and" instead of "&"
+- additionally, put back in the functionality that allows for a new card to be made, the way it was before.
