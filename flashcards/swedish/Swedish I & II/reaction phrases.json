@@ -1,0 +1,161 @@
+{
+    "score": 0,
+    "last_scores": [],
+    "cards": [
+        {
+            "question": [
+                "vad trevligt",
+                "vad fint"
+            ],
+            "answer": [
+                "so nice"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad roligt, vad kul, vad skoj"
+            ],
+            "answer": [
+                "so fun"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad sp\u00e4nnande"
+            ],
+            "answer": [
+                "so exciting"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad intressant"
+            ],
+            "answer": [
+                "so interesting"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad tr\u00e5kigt"
+            ],
+            "answer": [
+                "what a pity"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad synd"
+            ],
+            "answer": [
+                "what a shame"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad dyrt"
+            ],
+            "answer": [
+                "so expensive"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad billigt"
+            ],
+            "answer": [
+                "so cheap"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad stressigt"
+            ],
+            "answer": [
+                "so stressful"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad jobbigt",
+                "vad tufft"
+            ],
+            "answer": [
+                "so hard"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad vackert"
+            ],
+            "answer": [
+                "so beautiful"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad snyggt"
+            ],
+            "answer": [
+                "so good looking"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad fult"
+            ],
+            "answer": [
+                "so ugly"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad gott"
+            ],
+            "answer": [
+                "so tasty"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad \u00e4ckligt"
+            ],
+            "answer": [
+                "so disgusting"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad kallt"
+            ],
+            "answer": [
+                "so cold"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vad varmt"
+            ],
+            "answer": [
+                "so warm"
+            ],
+            "behavior": "and"
+        }
+    ]
+}

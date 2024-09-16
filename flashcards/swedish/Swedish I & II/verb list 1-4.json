@@ -1,0 +1,261 @@
+{
+    "score": 0,
+    "last_scores": [],
+    "cards": [
+        {
+            "question": [
+                "arbetar"
+            ],
+            "answer": [
+                "works"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "bor"
+            ],
+            "answer": [
+                "lives"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "dejtar"
+            ],
+            "answer": [
+                "dates"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "cyklar"
+            ],
+            "answer": [
+                "bikes"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "dricker"
+            ],
+            "answer": [
+                "drinks"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "fikar"
+            ],
+            "answer": [
+                "goes for fika"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "f\u00f6rst\u00e5r"
+            ],
+            "answer": [
+                "understands"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "g\u00f6r"
+            ],
+            "answer": [
+                "does"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "g\u00e5r"
+            ],
+            "answer": [
+                "walks"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "har"
+            ],
+            "answer": [
+                "has"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "heter"
+            ],
+            "answer": [
+                "is called"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "kommer"
+            ],
+            "answer": [
+                "comes"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "k\u00f6r"
+            ],
+            "answer": [
+                "drives"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "lagar mat"
+            ],
+            "answer": [
+                "cooks"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "lyssnar p\u00e5"
+            ],
+            "answer": [
+                "listens to"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "m\u00e5r"
+            ],
+            "answer": [
+                "feels"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "pluggar",
+                "studerar"
+            ],
+            "answer": [
+                "studies"
+            ],
+            "behavior": "or"
+        },
+        {
+            "question": [
+                "simmar"
+            ],
+            "answer": [
+                "swims"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "spelar"
+            ],
+            "answer": [
+                "plays"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "skriver"
+            ],
+            "answer": [
+                "writes"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "s\u00e4ger"
+            ],
+            "answer": [
+                "says"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "tar"
+            ],
+            "answer": [
+                "takes"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "talar"
+            ],
+            "answer": [
+                "speaks"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "tittar p\u00e5"
+            ],
+            "answer": [
+                "watches"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "tr\u00e4nar"
+            ],
+            "answer": [
+                "trains"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "\u00e5ker"
+            ],
+            "answer": [
+                "goes by transport"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "\u00e4r"
+            ],
+            "answer": [
+                "am",
+                "is",
+                "are"
+            ],
+            "behavior": "or"
+        },
+        {
+            "question": [
+                "\u00e4ter"
+            ],
+            "answer": [
+                "eats"
+            ],
+            "behavior": "and"
+        }
+    ]
+}

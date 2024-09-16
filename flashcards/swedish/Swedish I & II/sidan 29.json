@@ -1,0 +1,162 @@
+{
+    "score": 0,
+    "last_scores": [],
+    "cards": [
+        {
+            "question": [
+                "hur mycket \u00e4r klockan"
+            ],
+            "answer": [
+                "what time is it"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "hon \u00e4r",
+                "det \u00e4r"
+            ],
+            "answer": [
+                "it is"
+            ],
+            "behavior": "or"
+        },
+        {
+            "question": [
+                "klocka"
+            ],
+            "answer": [
+                "watch",
+                "clock"
+            ],
+            "behavior": "or"
+        },
+        {
+            "question": [
+                "halv sju"
+            ],
+            "answer": [
+                "six thirty"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "halv"
+            ],
+            "answer": [
+                "half"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "\u00f6ver"
+            ],
+            "answer": [
+                "over"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "kvart i"
+            ],
+            "answer": [
+                "quarter to"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "kvart"
+            ],
+            "answer": [
+                "quarter"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "prick",
+                "precis"
+            ],
+            "answer": [
+                "exactly"
+            ],
+            "behavior": "or"
+        },
+        {
+            "question": [
+                "fem \u00f6ver halv"
+            ],
+            "answer": [
+                "thirty five past"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "kvart \u00f6ver"
+            ],
+            "answer": [
+                "quarter past"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "fem i"
+            ],
+            "answer": [
+                "five to"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "fem i halv"
+            ],
+            "answer": [
+                "twenty five past"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "sekund"
+            ],
+            "answer": [
+                "second"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "minut"
+            ],
+            "answer": [
+                "minute"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "halvtimme"
+            ],
+            "answer": [
+                "half an hour"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "timme"
+            ],
+            "answer": [
+                "hour"
+            ],
+            "behavior": "and"
+        }
+    ]
+}

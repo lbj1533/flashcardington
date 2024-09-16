@@ -1,5 +1,5 @@
 Problems with the study interface:
--words should not move when a note is introduced. 
+-words should not move when a note is introduced.
 -decrease blank space in the app, make buttons bigger and overall improve the interface.
 -enter shortcut only works for the first flashcard, and does not work thereafter.
 -question should simply show the question, not "Question: [question]".
@@ -7,6 +7,7 @@ Problems with the study interface:
 -Once the session has completed, show a repeat set button, and a quit button, additionally the quit button should be present the whole time while studying so the user can quit studying whenever they want.
 
 Problems with the set creation interface:
+
 - the box for the creation of the notes should be smaller, and the boxes for the questions and answers should be bigger.
 - allow tabbing over the note text box, only if the last input was tabbing or shift tabbing from another text box or dropdown.
 - entering to add the created card does not work
@@ -17,23 +18,28 @@ Problems with the set creation interface:
 - create a quit button so the user can leave the set creation interface without creating a set.
 
 Problems with the study interface:
+
 - the load flashcards button should initialize to the flashcards directory
 - pressing return to submit the flashcard still does not work past the first one
 - an additional quit button does not need to be created when the set has completed, as there is one that is always there.
 - the repeat set button crashes, simply remove it for now
 
 Problems with the creation interface
+
 - enter still does not work to save a flashcard
 - ctrl-s does not save the set either.
 
 Problems with the study interface:
+
 - return to submit only works on the first card, allow it to work on every card, interestingly, it still says Question: [question] and note: [note] instead of just having [question] and [note] on the first flashcard, perhaps these are linked. Another theory could be that when I press return and i am focused into the answer box, it simply attempts to enter a newline character instead of submitting the card. Either way, fix this.
 - a note shifts the interface around, prevent this. The interface should look the same whether or not the note is present, just with or without the note.
 
 Problems with the flashcard set creation interface:
+
 - allow tab to skip over the note field, so it goes straight to add card
 
 Problems with editing interface
+
 - save changes should be a save & quit button
 - quit button should be left of save & quit button
 - deleting entire set should delete the json file itself
@@ -42,9 +48,28 @@ Problems with editing interface
 - new cards should be initiated with a blank question and answer field, and any flashcards that have both blank fields should not be saved. any flashcards that have either a blank question or answer field should raise a popup and make the user either delete the card or fill in the appropriate fields.
 
 problems with the editing interface
+
 - the bar at the bottom is too big, it takes up half the screen, i want it the minimum size it can be with the buttons it has.
-- add the delete entire set button to the bottom of the bar at the bottom, below the quit and save and quit buttons. additionally, make the text on the delete entire set button red. 
+- add the delete entire set button to the bottom of the bar at the bottom, below the quit and save and quit buttons. additionally, make the text on the delete entire set button red.
 - instead of having a big button to delete each card, have a small red x button at the top right of each card.
 
 - ensure the quit button is to the left of the save and quit button on the same row, and rename the save and quit button to use "and" instead of "&"
 - additionally, put back in the functionality that allows for a new card to be made, the way it was before.
+
+- note field is too big
+- bottom bar should be a bit smaller, but the buttons should be bigger.
+- automatically allow me to scroll, upon opening the editing interface, so focus into the scroll area
+- add new card returns this error:
+  Traceback (most recent call last):
+  File "/Users/loganjacobs/Desktop/CS/Projects/flashcardington/main.py", line 393, in add_new_card
+  scroll_position = self.main_widget.verticalScrollBar().value() # Save scroll position
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  AttributeError: 'QWidget' object has no attribute 'verticalScrollBar'
+- keep the save and quit button like this: # Save and Quit button on the right
+  save_and_quit_button = QPushButton("Save and Quit")
+  save_and_quit_button.clicked.connect(self.save_and_quit)
+  button_row_layout.addWidget(save_and_quit_button)
+
+- save and quit in the editing interface does not recognize invalid cards correctly. when i enter "4" as the question and "4a" as the answer on a new card, it gives me the popup as if i were attempting to save an invalid card, even though it is a valid card
+- the studying interface should ask me the cards that were incorrectly answered again, after the round is over. so if there are 4 cards, a b c and d, if i go through and answer a, and b correctly, but answer c and d incorrectly, the next round should ask me c and d, but not a or b. do this until all the cards are answered correctly.
+- after exiting a study session and starting a new one, hitting the return key no longer works to submit the answer.

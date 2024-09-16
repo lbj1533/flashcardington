@@ -1,0 +1,114 @@
+{
+    "score": 0,
+    "last_scores": [],
+    "cards": [
+        {
+            "question": [
+                "tid"
+            ],
+            "answer": [
+                "time"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "program"
+            ],
+            "answer": [
+                "program"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "konferens"
+            ],
+            "answer": [
+                "conference"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "sj\u00e4lvklart"
+            ],
+            "answer": [
+                "obvious"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "kanon"
+            ],
+            "answer": [
+                "great"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vilken tid"
+            ],
+            "answer": [
+                "what time"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "b\u00f6rja"
+            ],
+            "answer": [
+                "to begin"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "\u00e4ta"
+            ],
+            "answer": [
+                "to eat"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "fikapaus"
+            ],
+            "answer": [
+                "coffee break"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "sista"
+            ],
+            "answer": [
+                "final"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "sluta"
+            ],
+            "answer": [
+                "to end"
+            ],
+            "behavior": "and"
+        },
+        {
+            "question": [
+                "vid fem"
+            ],
+            "answer": [
+                "at five"
+            ],
+            "behavior": "and"
+        }
+    ]
+}

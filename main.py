@@ -64,7 +64,10 @@ class FlashcardApp(QMainWindow):
     def start_study_session(self, file):
         with open(file, "r") as f:
             self.flashcards_data = json.load(f)
+        
+        # Initialize study session variables
         self.current_card_index = 0
+        self.incorrect_cards = []
 
         # Create a persistent shortcut for the entire study session
         self.submit_shortcut = QShortcut(QKeySequence("Return"), self)
@@ -114,35 +117,37 @@ class FlashcardApp(QMainWindow):
         self.answer_input.setFocus()  # Automatically focus on the answer input
 
     def check_answer(self):
-        if self.current_card_index >= len(self.flashcards_data["cards"]):
-            self.welcome_screen()
-            return  # Exit the function if the index is out of range
-        
-        card = self.flashcards_data["cards"][self.current_card_index]
-        correct_answers = [answer.lower() for answer in card["answer"]]  # Convert correct answers to lowercase
-        user_answer = self.answer_input.text().strip().lower()  # Convert user input to lowercase
+        current_card = self.flashcards_data["cards"][self.current_card_index]
+        user_answer = self.answer_input.text().strip().lower()
+        correct_answers = [ans.lower() for ans in current_card["answer"]]
 
-        # Handle behavior ("and"/"or") and check answers
-        behavior = card.get("behavior", "and")
-        if behavior == "or":
-            if user_answer in correct_answers:
-                self.feedback_label.setText("Correct!")
-                self.move_to_next_card()
-            else:
-                self.feedback_label.setText(f"Incorrect. Correct Answer: {', '.join(card['answer'])}")
-        else:  # "and" behavior
-            if all(answer in user_answer for answer in correct_answers):
-                self.feedback_label.setText("Correct!")
-                self.move_to_next_card()
-            else:
-                self.feedback_label.setText(f"Incorrect. Correct Answer: {', '.join(card['answer'])}")
+        if user_answer in correct_answers:
+            self.feedback_label.setText("Correct!")
+            if self.current_card_index in self.incorrect_cards:
+                self.incorrect_cards.remove(self.current_card_index)  # Remove if previously wrong
+            self.move_to_next_card()
+        else:
+            self.feedback_label.setText(f"Incorrect. Correct Answer: {', '.join(current_card['answer'])}")
+            if self.current_card_index not in self.incorrect_cards:
+                self.incorrect_cards.append(self.current_card_index)  # Add to incorrect cards
+
 
     def move_to_next_card(self):
         self.current_card_index += 1
+
+        # If we reach the end of the deck
         if self.current_card_index >= len(self.flashcards_data["cards"]):
-            self.end_session()
+            if self.incorrect_cards:
+                # Restart with the incorrect cards
+                self.current_card_index = self.incorrect_cards.pop(0)
+                self.show_flashcard()
+            else:
+                # End session if no incorrect cards left
+                self.end_session()
         else:
+            # Show the next card
             self.show_flashcard()
+
 
     def end_session(self):
         self.feedback_label.setText("You have completed the session!")
@@ -288,51 +293,88 @@ class FlashcardApp(QMainWindow):
         layout = QVBoxLayout()
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
+        self.scroll_area = scroll
         scroll_widget = QWidget()
         scroll_layout = QVBoxLayout()
 
         for index, card in enumerate(self.flashcards_data["cards"]):
-            card_layout = QGridLayout()
+            # Card layout and container widget
+            card_container = QWidget()
+            card_layout = QGridLayout(card_container)
 
+            # Question field
             question_edit = QLineEdit(", ".join(card["question"]))
             card_layout.addWidget(QLabel(f"Question {index+1}:"), 0, 0)
             card_layout.addWidget(question_edit, 0, 1)
 
+            # Answer field
             answer_edit = QLineEdit(", ".join(card["answer"]))
             card_layout.addWidget(QLabel(f"Answer {index+1}:"), 1, 0)
             card_layout.addWidget(answer_edit, 1, 1)
 
+            # Behavior field
             behavior_edit = QComboBox()
             behavior_edit.addItems(["and", "or"])
             behavior_edit.setCurrentText(card.get("behavior", "and"))
             card_layout.addWidget(QLabel(f"Behavior {index+1}:"), 2, 0)
             card_layout.addWidget(behavior_edit, 2, 1)
 
+            # Note field
             note_edit = QTextEdit(card.get("note", ""))
             card_layout.addWidget(QLabel(f"Note {index+1} (optional):"), 3, 0)
             card_layout.addWidget(note_edit, 3, 1)
 
-            delete_button = QPushButton(f"Delete Card {index+1}")
+            # Small red 'X' button for deleting the card, at the top-right
+            delete_button = QPushButton("X")
+            delete_button.setStyleSheet("QPushButton { color: red; }")
+            delete_button.setFixedSize(30, 30)
             delete_button.clicked.connect(lambda checked, idx=index: self.delete_card(idx))
-            card_layout.addWidget(delete_button, 4, 0, 1, 2)
+            card_layout.addWidget(delete_button, 0, 2, alignment=Qt.AlignmentFlag.AlignRight)
 
-            scroll_layout.addLayout(card_layout)
+            # Add the card container to the scroll layout
+            scroll_layout.addWidget(card_container)
 
+        # Add New Card button
         add_card_button = QPushButton("Add New Card")
         add_card_button.clicked.connect(self.add_new_card)
         scroll_layout.addWidget(add_card_button)
 
-        delete_set_button = QPushButton("Delete Entire Set")
-        delete_set_button.clicked.connect(self.delete_entire_set)
-        scroll_layout.addWidget(delete_set_button)
-
-        save_button = QPushButton("Save Changes")
-        save_button.clicked.connect(self.save_edited_flashcard_set)
-        scroll_layout.addWidget(save_button)
-
+        # Set up the scroll area
         scroll_widget.setLayout(scroll_layout)
         scroll.setWidget(scroll_widget)
         layout.addWidget(scroll)
+
+        # Bottom bar layout
+        bottom_bar_layout = QHBoxLayout()
+
+        # Quit button (on the left)
+        quit_button = QPushButton("Quit")
+        quit_button.clicked.connect(self.welcome_screen)
+        bottom_bar_layout.addWidget(quit_button)
+
+        # Save and Quit button (on the right)
+        save_and_quit_button = QPushButton("Save and Quit")
+        save_and_quit_button.clicked.connect(self.save_and_quit)
+        bottom_bar_layout.addWidget(save_and_quit_button)
+
+        # Spacer for aligning buttons
+        bottom_bar_layout.addStretch()
+
+        # Delete Entire Set button with red text, at the bottom
+        delete_set_button = QPushButton("Delete Entire Set")
+        delete_set_button.setStyleSheet("color: red;")
+        delete_set_button.clicked.connect(self.delete_entire_set)
+        bottom_bar_layout.addWidget(delete_set_button)
+
+        # Bottom bar styling to minimize size
+        bottom_bar_widget = QWidget()
+        bottom_bar_widget.setLayout(bottom_bar_layout)
+        bottom_bar_widget.setMaximumHeight(50)
+
+        # Add the bottom bar to the main layout
+        layout.addWidget(bottom_bar_widget)
+
+        # Finalize layout
         self.main_widget.setLayout(layout)
 
     def delete_card(self, index):
@@ -341,16 +383,20 @@ class FlashcardApp(QMainWindow):
         self.show_edit_flashcards()
 
     def add_new_card(self):
-        new_card = {
-            "question": [""],  # Blank question field
-            "answer": [""],    # Blank answer field
+        # Your existing logic for adding a new card
+        # Ensure to scroll to the new card after adding it
+        self.flashcards_data["cards"].append({
+            "question": [""],
+            "answer": [""],
             "behavior": "and",
             "note": ""
-        }
-        self.flashcards_data["cards"].append(new_card)
-        scroll_position = self.main_widget.verticalScrollBar().value()  # Save scroll position
+        })
         self.show_edit_flashcards()
-        self.main_widget.verticalScrollBar().setValue(scroll_position)  # Restore scroll position
+
+        # Restore scroll position after adding a new card
+        scroll_position = self.scroll_area.verticalScrollBar().value()  # Save scroll position
+        self.scroll_area.verticalScrollBar().setValue(scroll_position)  # Set it back after the new card is added
+
 
 
     def delete_entire_set(self):
@@ -365,32 +411,25 @@ class FlashcardApp(QMainWindow):
             self.welcome_screen()  # Return to the welcome screen
 
     def save_and_quit(self):
-        # Check for invalid cards (either blank question or answer)
         invalid_cards = []
+
+        # Check all cards for validity (question and answer should not be blank)
         for index, card in enumerate(self.flashcards_data["cards"]):
-            if not any(card["question"]) or not any(card["answer"]):  # Check if question or answer is blank
+            if not any(q.strip() for q in card["question"]) or not any(a.strip() for a in card["answer"]):
                 invalid_cards.append(index)
 
-        # Remove fully blank cards
-        self.flashcards_data["cards"] = [card for card in self.flashcards_data["cards"]
-                                        if any(card["question"]) and any(card["answer"])]
-
+        # If there are invalid cards, show popup and ask user to fix or delete
         if invalid_cards:
-            reply = QMessageBox.warning(self, "Invalid Cards", 
-                                        "Some cards have missing questions or answers. Do you want to delete them or fix them?",
-                                        QMessageBox.StandardButton.Delete | QMessageBox.StandardButton.Fix)
+            popup = QMessageBox(self)
+            popup.setIcon(QMessageBox.Warning)
+            popup.setWindowTitle("Invalid Cards")
+            popup.setText("Some cards have missing questions or answers. Please fix or delete them.")
+            popup.exec_()
+        else:
 
-            if reply == QMessageBox.StandardButton.Delete:
-                self.flashcards_data["cards"] = [card for i, card in enumerate(self.flashcards_data["cards"])
-                                                if i not in invalid_cards]
-            else:
-                return  # Go back to editing to allow fixing
-
-        # Save the changes
-        self.save_edited_flashcard_set_no_popup()
-        self.welcome_screen()  # Return to welcome screen
-
-
+            # Save the changes
+            self.save_edited_flashcard_set_no_popup()
+            self.welcome_screen()  # Return to welcome screen
 
     def save_edited_flashcard_set(self):
         with open(self.flashcard_file, "w") as f:
